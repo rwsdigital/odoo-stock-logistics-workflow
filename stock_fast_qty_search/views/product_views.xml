@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Product Template -->
+
+        <record id="product_template_search_form_view_stock_inherit" model="ir.ui.view">
+            <field name="name">product.template.search.stock.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>
+            <field name="arch" type="xml">
+                <filter name="real_stock_available" position="replace">
+                    <filter name="real_stock_available" string="Available Products" domain="[('qty_available_fast','&gt;',0)]"/>
+                </filter>
+                <filter name="real_stock_exhausted" position="replace">
+                    <filter name="real_stock_exhausted" string="Exhausted Stock" domain="[('qty_available_fast','&lt;=',0),('type','not in',('service', 'consu'))]"/>
+                </filter>
+                <filter name="real_stock_negative" position="replace">
+                    <filter name="real_stock_negative" string="Negative Stock" domain="[('qty_available_fast','&lt;',0)]"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</odoo>
